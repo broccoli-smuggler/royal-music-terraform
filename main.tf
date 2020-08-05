@@ -20,7 +20,19 @@ module "royalmusictour_website_www" {
   redirect_all_requests_to = var.domain_name
 }
 
+provider "archive" {}
+
+data "archive_file" "init" {
+  type        = "zip"
+  source_dir = var.artifact_dir
+  output_path = "site.zip"
+}
+
 resource "null_resource" "upload_web_resouce" {
+  triggers = {
+    src_hash = data.archive_file.init.output_sha
+  }
+
   provisioner  "local-exec" {
     command = "aws s3 sync ${var.artifact_dir} s3://${module.royalmusictour_website.s3_bucket_name} --profile ${var.profile} --delete"
   }
