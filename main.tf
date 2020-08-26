@@ -9,6 +9,7 @@ module "royalmusictour_website" {
   stage          = var.stage
   name           = var.app
   hostname       = var.domain_name
+  force_destroy  = true
 }
 
 module "royalmusictour_website_www" {
@@ -18,6 +19,7 @@ module "royalmusictour_website_www" {
   name           = var.app
   hostname       = join(".", ["www", var.domain_name])
   redirect_all_requests_to = var.domain_name
+  force_destroy  = true
 }
 
 provider "archive" {}

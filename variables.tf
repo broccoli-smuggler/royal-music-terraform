@@ -1,7 +1,7 @@
 variable "artifact_dir" {
   description = "Path to your static website"
   type        = string
-  default     = "../royalmusictour/public"
+  default     = "../gatsby-dummy/public"
 }
 
 variable "app" {
